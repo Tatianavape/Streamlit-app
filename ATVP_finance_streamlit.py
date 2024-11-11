@@ -6,7 +6,7 @@ import numpy as np
 from plotly.subplots import make_subplots
 import matplotlib.pyplot as plt
 
-#Individual assgiment for Angie Tatiana Vargas Perea - MBD 2024
+#Individual assignment for Angie Tatiana Vargas Perea - MBD 2024
 
 #==============================================================================
 
@@ -214,13 +214,9 @@ if page == "Summary":
 
     # Get the ticker of the selected company
         selected_ticker = sp500_table.loc[sp500_table['Security'] == selected_company, 'Symbol'].values[0]
-
-
-        
+     
 
         info, major_shareholders = get_stock_info(selected_ticker)
-
-
 
         # Summarize profile information
         profile_summary = {
@@ -239,8 +235,7 @@ if page == "Summary":
             'Day Low': format_dollar(info.get('dayLow')),
             'Day High': format_dollar(info.get('dayHigh'))
         }
-
-    
+   
   # Display the table with the stock information 
 
         st.subheader(f"Summary for {selected_company} ({selected_ticker})")
@@ -253,8 +248,7 @@ if page == "Summary":
                 'props': [('background-color', '#D6002A'), ('color', 'white')]
             }]))
 
-   
-    with col2:
+     with col2:
         # Time filters
         time_options = {
             '1M': '1mo',
@@ -342,10 +336,6 @@ if page == "Chart":
     selected_ticker = sp500_table.loc[sp500_table['Security'] == selected_company, 'Symbol'].values[0]
     
 
-        
-    
-    
-    
     time_options = {
             '1M': '1mo',
             '3M': '3mo',
@@ -366,8 +356,7 @@ if page == "Chart":
         if cols[i].button(label):
             selected_period = period
     
-   
-    try:
+   try:
         hist_data = get_stock_history(selected_ticker, selected_period)
         if hist_data.empty:
             st.warning(f"No data available for the selected period: {selected_period}")
@@ -411,7 +400,6 @@ if page == "Chart":
                     close=hist_data['Close'],
                     name='Candlestick',
                     increasing_line_color='green', 
-                    rangeslider = dict(visible = False), 
                     decreasing_line_color='red'  
                     )
                 fig.add_trace(candle_trace, secondary_y=True)
@@ -423,6 +411,7 @@ if page == "Chart":
                 line=dict(color='orange', dash='dash')  # Dashed orange line for SMA
                 )
                 fig.add_trace(sma_trace, secondary_y=True)
+                fig.update_layout(xaxis_rangeslider_visible=False)
 
           # Volume chart
             volume_trace = go.Bar(
@@ -802,3 +791,13 @@ if page == 'Relative Performance Analysis':
     )
 
     st.plotly_chart(fig)
+
+
+
+
+#==============================================================================
+
+#Individual assignment for Angie Tatiana Vargas Perea - MBD 2024
+
+
+
