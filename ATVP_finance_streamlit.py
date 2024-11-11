@@ -201,7 +201,14 @@ st.sidebar.markdown("""
 2. Use the buttons to pick a time period for the chart.
 """)
 
-if st.button("Update Data"):
+
+
+# **Page 1: Summary**
+if page == "Summary":
+   
+   
+    st.markdown('<h1 style="font-size: 24px; text-decoration: underline;">Financial info</h1>', unsafe_allow_html=True)
+    if st.button("Update Data"):
     st.write(f"Updating data for {selected_ticker}...")
     data = get_stock_data(selected_ticker)
     st.write("Data updated successfully!")
@@ -217,13 +224,7 @@ if st.button("Update Data"):
         file_name=f"{selected_ticker}_data.csv",
         mime="text/csv"
     )
-
-# **Page 1: Summary**
-if page == "Summary":
-   
-   
-    st.markdown('<h1 style="font-size: 24px; text-decoration: underline;">Financial info</h1>', unsafe_allow_html=True)
-
+    
     col1, col2 = st.columns([1, 2])  
     with col1:
     # Company selection filter
