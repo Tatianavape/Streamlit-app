@@ -208,22 +208,21 @@ if page == "Summary":
    
    
     st.markdown('<h1 style="font-size: 24px; text-decoration: underline;">Financial info</h1>', unsafe_allow_html=True)
+    
     if st.button("Update Data"):
-    st.write(f"Updating data for {selected_ticker}...")
-    data = get_stock_data(selected_ticker)
-    st.write("Data updated successfully!")
-
-    # Mostrar los datos en un dataframe
-    st.dataframe(data)
-
-    # Crear un botón para descargar los datos en formato CSV
-    csv = data.to_csv(index=True)
-    st.download_button(
-        label="Download data as CSV",
-        data=csv,
-        file_name=f"{selected_ticker}_data.csv",
-        mime="text/csv"
-    )
+        st.write(f"Updating data for {selected_ticker}...")
+        data = get_stock_data(selected_ticker)
+        st.write("Data updated successfully!")
+    
+        st.dataframe(data)
+    
+        csv = data.to_csv(index=True)
+        st.download_button(
+            label="Download data as CSV",
+            data=csv,
+            file_name=f"{selected_ticker}_data.csv",
+            mime="text/csv"
+        )
     
     col1, col2 = st.columns([1, 2])  
     with col1:
