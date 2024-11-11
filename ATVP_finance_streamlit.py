@@ -248,7 +248,7 @@ if page == "Summary":
                 'props': [('background-color', '#D6002A'), ('color', 'white')]
             }]))
 
-     with col2:
+    with col2:
         # Time filters
         time_options = {
             '1M': '1mo',
