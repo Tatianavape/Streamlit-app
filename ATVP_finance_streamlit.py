@@ -410,7 +410,8 @@ if page == "Chart":
                     low=hist_data['Low'],
                     close=hist_data['Close'],
                     name='Candlestick',
-                    increasing_line_color='green',  
+                    increasing_line_color='green', 
+                    rangeslider = dict(visible = False), 
                     decreasing_line_color='red'  
                     )
                 fig.add_trace(candle_trace, secondary_y=True)
@@ -439,7 +440,6 @@ if page == "Chart":
                 yaxis2=dict(title='Price (USD)', overlaying='y', side='right'),
                 xaxis=dict(title='Date'),
                 barmode='overlay',
-                rangeslider = dict(visible = False),
                 template='plotly_dark')
 
             st.plotly_chart(fig)
