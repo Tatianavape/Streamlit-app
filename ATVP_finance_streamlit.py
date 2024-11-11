@@ -432,13 +432,14 @@ if page == "Chart":
             )
             fig.add_trace(volume_trace, secondary_y=False)
 
-            # Configurar el layout
+          
             fig.update_layout(
                 title=f'Chart of {selected_company} ({selected_ticker}) for the period:{selected_period}',
                 yaxis=dict(title='Volumen'),
                 yaxis2=dict(title='Price (USD)', overlaying='y', side='right'),
                 xaxis=dict(title='Date'),
                 barmode='overlay',
+                rangeslider = dict(visible = False),
                 template='plotly_dark')
 
             st.plotly_chart(fig)
