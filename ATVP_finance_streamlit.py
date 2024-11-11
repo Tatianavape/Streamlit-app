@@ -201,6 +201,23 @@ st.sidebar.markdown("""
 2. Use the buttons to pick a time period for the chart.
 """)
 
+if st.button("Update Data"):
+    st.write(f"Updating data for {selected_ticker}...")
+    data = get_stock_data(selected_ticker)
+    st.write("Data updated successfully!")
+
+    # Mostrar los datos en un dataframe
+    st.dataframe(data)
+
+    # Crear un botón para descargar los datos en formato CSV
+    csv = data.to_csv(index=True)
+    st.download_button(
+        label="Download data as CSV",
+        data=csv,
+        file_name=f"{selected_ticker}_data.csv",
+        mime="text/csv"
+    )
+
 # **Page 1: Summary**
 if page == "Summary":
    
@@ -799,5 +816,5 @@ if page == 'Relative Performance Analysis':
 
 #Individual assignment for Angie Tatiana Vargas Perea - MBD 2024
 
-
+# Code adapted from examples provided by Professor PHAN Minh. 
 
