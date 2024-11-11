@@ -356,7 +356,7 @@ if page == "Chart":
         if cols[i].button(label):
             selected_period = period
     
-   try:
+    try:
         hist_data = get_stock_history(selected_ticker, selected_period)
         if hist_data.empty:
             st.warning(f"No data available for the selected period: {selected_period}")
