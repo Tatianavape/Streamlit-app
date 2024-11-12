@@ -596,7 +596,7 @@ if page == "Financials":
         stock = yf.Ticker(selected_ticker) 
         st.success("Financial data updated successfully!")
 
-    if not financial_data.empty:
+    if financial_data is not None and not financial_data.empty:
             csv_data = financial_data.to_csv(index=True)
             st.download_button(
                 label="Download Selected Financial Statement as CSV",
