@@ -325,6 +325,20 @@ if page == "Summary":
         st.markdown("<p style='font-size: 16px; color: white; background-color: #FF7993; padding: 10px; border-radius: 5px;'><strong>Major Shareholders</strong></p>", unsafe_allow_html=True)
         st.text("Not available")
 
+    if st.button("Update Data"):
+        st.write(f"Updating data for {selected_ticker}...")
+        data = get_stock_data(selected_ticker)
+        st.write("Data updated successfully!")
+    
+        st.dataframe(data)
+    
+        csv = data.to_csv(index=True)
+        st.download_button(
+            label="Download data as CSV",
+            data=csv,
+            file_name=f"{selected_ticker}_data.csv",
+            mime="text/csv"
+        )
 
 
 
@@ -440,22 +454,7 @@ if page == "Chart":
         st.error(f"Error getting historical data: {e}")
 
             
-    if st.button("Update Data"):
-        st.write(f"Updating data for {selected_ticker}...")
-        data = get_stock_data(selected_ticker)
-        st.write("Data updated successfully!")
     
-        st.dataframe(data)
-    
-        csv = data.to_csv(index=True)
-        st.download_button(
-            label="Download data as CSV",
-            data=csv,
-            file_name=f"{selected_ticker}_data.csv",
-            mime="text/csv"
-        )
-
-
 # **Page 3: Stock Summary**
 if page == "Financials":
 
