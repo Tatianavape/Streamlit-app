@@ -326,12 +326,17 @@ if page == "Summary":
         st.text("Not available")
 
     if st.button("Update Data"):
-        st.write(f"Updating data for {selected_ticker}...")
-        data = get_stock_data(selected_ticker)
+    st.write(f"Updating data for {selected_ticker}...")
+    
+    # Retrieve stock history data
+    try:
+        data = get_stock_history(selected_ticker, selected_period)
         st.write("Data updated successfully!")
-    
+        
+        # Display data in a dataframe
         st.dataframe(data)
-    
+        
+        # Download button for CSV
         csv = data.to_csv(index=True)
         st.download_button(
             label="Download data as CSV",
@@ -339,6 +344,8 @@ if page == "Summary":
             file_name=f"{selected_ticker}_data.csv",
             mime="text/csv"
         )
+    except Exception as e:
+        st.error(f"Error retrieving stock data: {e}")
 
 
 
