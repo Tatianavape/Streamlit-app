@@ -200,26 +200,25 @@ st.sidebar.markdown("""
 1. Select a company from the dropdown.
 2. Use the buttons to pick a time period for the chart.
 """)
-
-if st.button("Update Data"):
+if st.sidebar.button("Update Data"):
     st.write(f"Updating data for {selected_ticker}...")
-        
-    # Retrieve stock history data
+    
+    # Obtener datos históricos de la acción
     try:
         data = get_stock_history(selected_ticker, selected_period)
         st.write("Data updated successfully!")
-            
-            # Display data in a dataframe
+        
+        # Mostrar los datos en un dataframe
         st.dataframe(data)
-            
-            # Download button for CSV
+        
+        # Crear botón de descarga para el CSV
         csv = data.to_csv(index=True)
         st.download_button(
             label="Download data as CSV",
             data=csv,
             file_name=f"{selected_ticker}_data.csv",
             mime="text/csv"
-            )
+        )
     except Exception as e:
         st.error(f"Error retrieving stock data: {e}")
 
