@@ -326,39 +326,35 @@ if page == "Summary":
 
     #Update & Download option
 
-    download_option = st.selectbox("Select data to download", ["Historical Data", "Company Summary"])
-
-    # Update and download options
-    st.markdown("### Update and Download Options")
-    
-    # Button to update data
-    if st.button("Update Data"):
+    f st.button("Update Data", key="update_data"):
         st.write(f"Updating data for {selected_ticker}...")
         hist_data = get_stock_history(selected_ticker, selected_period)
         info, major_shareholders = get_stock_info(selected_ticker)
         st.success("Data updated successfully!")
 
-    # Options and buttons for data download
-    download_option = st.selectbox("Select data to download", ["Historical Data", "Company Summary"])
+   
+    download_option = st.selectbox("Select data to download", ["Historical Data", "Company Summary"], key="download_option")
 
-    if st.button("Download Data"):
+    if st.button("Download Data", key="download_data"):
         if download_option == "Historical Data":
-            # Prepare historical data for download
+            
             csv_data = hist_data.to_csv(index=True)
             st.download_button(
                 label="Download Historical Data as CSV",
                 data=csv_data,
                 file_name=f"{selected_ticker}_historical_data.csv",
-                mime="text/csv"
+                mime="text/csv",
+                key="download_hist_data"
             )
         elif download_option == "Company Summary":
-            # Prepare company summary data for download
+            
             csv_summary = profile_df.to_csv(index=False)
             st.download_button(
                 label="Download Company Summary as CSV",
                 data=csv_summary,
                 file_name=f"{selected_ticker}_company_summary.csv",
-                mime="text/csv"
+                mime="text/csv",
+                key="download_summary_data"
             )
 
 # **Page 2: Stock Summary**
