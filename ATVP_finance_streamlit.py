@@ -483,15 +483,12 @@ if page == "Financials":
     selected_ticker = sp500_table.loc[sp500_table['Security'] == selected_company, 'Symbol'].values[0]
     stock = yf.Ticker(selected_ticker)
     
-     
-
 # Collect and present the financial information of the stock
     
-        # Retrieve financial information
     financials = stock.financials
     info = stock.info
 
-            # Display basic financial metrics
+    # Display basic financial metrics
         
     st.write(f"**Company Name:** {info.get('longName', 'N/A')}")
     st.write(f"**Ticker:** {selected_ticker}")
@@ -508,7 +505,6 @@ if page == "Financials":
     st.markdown("### Financial Statement")
     cols = st.columns(len(statement_options)) 
 
-    
     selected_statement = None
     
     
@@ -520,17 +516,7 @@ if page == "Financials":
     if selected_statement:
         st.subheader(selected_statement)
     
-    
-
     try:
-
-        def process_financial_data(df):
-        
-            df.columns = pd.to_datetime(df.columns).year
-       
-            df = df[sorted(df.columns)]
-            df = df.applymap(lambda x: f"${x:,.2f}" if pd.notnull(x) else "N/A")
-            return df
 
         def process_financial_data(df, is_quarterly=False):
             
@@ -545,8 +531,6 @@ if page == "Financials":
            
             
             df = df[sorted(df.columns)]
-            
-            
             df = df.applymap(lambda x: f"${x:,.2f}" if pd.notnull(x) else "N/A")
             return df
   
@@ -596,7 +580,16 @@ if page == "Financials":
         stock = yf.Ticker(selected_ticker) 
         st.success("Financial data updated successfully!")
 
-    if process_financial_data is not None and not process_financial_data.empty:
+    if selected_statement:
+        financial_data = None
+        if selected_statement == "Income Statement":
+            financial_data = processed_income if period_options == "Annual" else processed_income  # Adjusted for quarterly if needed
+        elif selected_statement == "Balance Sheet":
+            financial_data = processed_balance
+        elif selected_statement == "Cash Flow":
+            financial_data = processed_cashflow
+
+        if financial_data is not None:
             csv_data = financial_data.to_csv(index=True)
             st.download_button(
                 label="Download Selected Financial Statement as CSV",
