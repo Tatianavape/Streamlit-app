@@ -208,31 +208,15 @@ if page == "Summary":
    
    
     st.markdown('<h1 style="font-size: 24px; text-decoration: underline;">Financial info</h1>', unsafe_allow_html=True)
-    # Company selection filter
-    selected_company = st.selectbox("Select a company", company_names)
-
-    # Get the ticker of the selected company
-    selected_ticker = sp500_table.loc[sp500_table['Security'] == selected_company, 'Symbol'].values[0]
-
-        
-    if st.button("Update Data"):
-        st.write(f"Updating data for {selected_ticker}...")
-        data = get_stock_data(selected_ticker)
-        st.write("Data updated successfully!")
     
-        st.dataframe(data)
-    
-        csv = data.to_csv(index=True)
-        st.download_button(
-            label="Download data as CSV",
-            data=csv,
-            file_name=f"{selected_ticker}_data.csv",
-            mime="text/csv"
-        )
     
     col1, col2 = st.columns([1, 2])  
     with col1:
-     
+         # Company selection filter
+        selected_company = st.selectbox("Select a company", company_names)
+
+        # Get the ticker of the selected company
+        selected_ticker = sp500_table.loc[sp500_table['Security'] == selected_company, 'Symbol'].values[0]
         info, major_shareholders = get_stock_info(selected_ticker)
 
         # Summarize profile information
@@ -340,6 +324,8 @@ if page == "Summary":
     else:
         st.markdown("<p style='font-size: 16px; color: white; background-color: #FF7993; padding: 10px; border-radius: 5px;'><strong>Major Shareholders</strong></p>", unsafe_allow_html=True)
         st.text("Not available")
+
+
 
 
 # **Page 2: Stock Summary**
@@ -453,7 +439,21 @@ if page == "Chart":
     except Exception as e:
         st.error(f"Error getting historical data: {e}")
 
-
+            
+    if st.button("Update Data"):
+        st.write(f"Updating data for {selected_ticker}...")
+        data = get_stock_data(selected_ticker)
+        st.write("Data updated successfully!")
+    
+        st.dataframe(data)
+    
+        csv = data.to_csv(index=True)
+        st.download_button(
+            label="Download data as CSV",
+            data=csv,
+            file_name=f"{selected_ticker}_data.csv",
+            mime="text/csv"
+        )
 
 
 # **Page 3: Stock Summary**
