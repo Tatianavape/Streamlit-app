@@ -335,7 +335,7 @@ if page == "Summary":
         st.success("Data updated successfully!")
 
    
-    download_option = st.selectbox("Select data to download", ["Historical Data", "Company Summary"], key="download_option")
+    download_option = st.radio("Select data to download", ["Historical Data", "Company Summary"], key="download_option")
 
     if st.button("Download Data", key="download_data"):
         if download_option == "Historical Data":
