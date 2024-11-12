@@ -200,27 +200,6 @@ st.sidebar.markdown("""
 1. Select a company from the dropdown.
 2. Use the buttons to pick a time period for the chart.
 """)
-if st.sidebar.button("Update Data"):
-    st.write(f"Updating data for {selected_ticker}...")
-    
-    # Obtener datos históricos de la acción
-    try:
-        data = get_stock_history(selected_ticker, selected_period)
-        st.write("Data updated successfully!")
-        
-        # Mostrar los datos en un dataframe
-        st.dataframe(data)
-        
-        # Crear botón de descarga para el CSV
-        csv = data.to_csv(index=True)
-        st.download_button(
-            label="Download data as CSV",
-            data=csv,
-            file_name=f"{selected_ticker}_data.csv",
-            mime="text/csv"
-        )
-    except Exception as e:
-        st.error(f"Error retrieving stock data: {e}")
 
 
 # **Page 1: Summary**
@@ -345,7 +324,25 @@ if page == "Summary":
         st.markdown("<p style='font-size: 16px; color: white; background-color: #FF7993; padding: 10px; border-radius: 5px;'><strong>Major Shareholders</strong></p>", unsafe_allow_html=True)
         st.text("Not available")
 
+    if st.button("Update Data"):
+        st.write(f"Updating data for {selected_ticker}...")
     
+    # Retrieve stock history data
+    try:
+        data = get_stock_history(selected_ticker, selected_period)
+        st.write("Data updated successfully!")
+        
+             
+        # Download button for CSV
+        csv = data.to_csv(index=True)
+        st.download_button(
+            label="Download data as CSV",
+            data=csv,
+            file_name=f"{selected_ticker}_data.csv",
+            mime="text/csv"
+        )
+    except Exception as e:
+        st.error(f"Error retrieving stock data: {e}")
 
 
 # **Page 2: Stock Summary**
