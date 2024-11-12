@@ -256,7 +256,6 @@ if page == "Summary":
             '6M': '6mo',
             'YDT': 'YTD',
             '1Y': '1y',
-            '3Y': '3y',
             '5Y': '5y',
             'Max': 'max'
         }
@@ -327,7 +326,7 @@ if page == "Summary":
     #Update & Download option
     st.markdown("### Update and Download Options")
     
-    # Botón para actualizar datos
+    
     if st.button("Update Data", key="update_data"):
         st.write(f"Updating data for {selected_ticker}...")
         hist_data = get_stock_history(selected_ticker, selected_period)
@@ -376,7 +375,6 @@ if page == "Chart":
             '6M': '6mo',
             'YDT': 'YTD',
             '1Y': '1y',
-            '3Y': '3y',
             '5Y': '5y',
             'Max': 'max'
         }
@@ -419,7 +417,7 @@ if page == "Chart":
                 y=hist_data['SMA_50'],
                 mode='lines',
                 name='SMA 50 days',
-                line=dict(color='orange', dash='dash')  # Dashed orange line for SMA
+                line=dict(color='orange', dash='dash')  
                 )
                 fig.add_trace(sma_trace, secondary_y=True)
 
@@ -442,7 +440,7 @@ if page == "Chart":
                 y=hist_data['SMA_50'],
                 mode='lines',
                 name='SMA 50 days',
-                line=dict(color='orange', dash='dash')  # Dashed orange line for SMA
+                line=dict(color='orange', dash='dash') 
                 )
                 fig.add_trace(sma_trace, secondary_y=True)
                 fig.update_layout(xaxis_rangeslider_visible=False)
@@ -583,7 +581,7 @@ if page == "Financials":
     if selected_statement:
         financial_data = None
         if selected_statement == "Income Statement":
-            financial_data = processed_income if period_options == "Annual" else processed_income  # Adjusted for quarterly if needed
+            financial_data = processed_income if period_options == "Annual" else processed_income  
         elif selected_statement == "Balance Sheet":
             financial_data = processed_balance
         elif selected_statement == "Cash Flow":
@@ -774,7 +772,6 @@ if page == 'Relative Performance Analysis':
                 '6M': '6mo',
                 'YDT': 'YTD',
                 '1Y': '1y',
-                '3Y': '3y',
                 '5Y': '5y',
                 'Max': 'max'
             }
@@ -839,5 +836,5 @@ if page == 'Relative Performance Analysis':
 
 #Individual assignment for Angie Tatiana Vargas Perea - MBD 2024
 
-# Code adapted from examples provided by Professor PHAN Minh. 
+# Code adapted from examples provided by Professor PHAN Minh IESEG 2024. 
 
