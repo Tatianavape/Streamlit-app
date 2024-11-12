@@ -324,24 +324,42 @@ if page == "Summary":
         st.markdown("<p style='font-size: 16px; color: white; background-color: #FF7993; padding: 10px; border-radius: 5px;'><strong>Major Shareholders</strong></p>", unsafe_allow_html=True)
         st.text("Not available")
 
+    #Update & Download option
+
+    download_option = st.sidebar.selectbox("Select data to download", ["Historical Data", "Company Summary"])
+
+    # Update and download options
+    st.markdown("### Update and Download Options")
+    
+    # Button to update data
     if st.button("Update Data"):
         st.write(f"Updating data for {selected_ticker}...")
-    
-    # Retrieve stock history data
-    try:
-        data = get_stock_history(selected_ticker, selected_period)     
-             
-        # Download button for CSV
-        csv = data.to_csv(index=True)
-        st.download_button(
-            label="Download data as CSV",
-            data=csv,
-            file_name=f"{selected_ticker}_data.csv",
-            mime="text/csv"
-        )
-    except Exception as e:
-        st.error(f"Error retrieving stock data: {e}")
+        hist_data = get_stock_history(selected_ticker, selected_period)
+        info, major_shareholders = get_stock_info(selected_ticker)
+        st.success("Data updated successfully!")
 
+    # Options and buttons for data download
+    download_option = st.selectbox("Select data to download", ["Historical Data", "Company Summary"])
+
+    if st.button("Download Data"):
+        if download_option == "Historical Data":
+            # Prepare historical data for download
+            csv_data = hist_data.to_csv(index=True)
+            st.download_button(
+                label="Download Historical Data as CSV",
+                data=csv_data,
+                file_name=f"{selected_ticker}_historical_data.csv",
+                mime="text/csv"
+            )
+        elif download_option == "Company Summary":
+            # Prepare company summary data for download
+            csv_summary = profile_df.to_csv(index=False)
+            st.download_button(
+                label="Download Company Summary as CSV",
+                data=csv_summary,
+                file_name=f"{selected_ticker}_company_summary.csv",
+                mime="text/csv"
+            )
 
 # **Page 2: Stock Summary**
 if page == "Chart":
