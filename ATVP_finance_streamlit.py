@@ -549,12 +549,7 @@ if page == "Financials":
             
             df = df.applymap(lambda x: f"${x:,.2f}" if pd.notnull(x) else "N/A")
             return df
-
-
-
-
-
-        
+  
         styles = [
             {'selector': 'thead th', 'props': [('background-color', '#D6002A'), ('color', 'white')]},
             {'selector': 'thead tr:nth-child(1) th', 'props': [('background-color', '#D6002A'), ('color', 'white')]}
@@ -591,6 +586,51 @@ if page == "Financials":
 
     except Exception as e:
             st.error(f"Error retrieving financial statement: {e}")
+
+    #Update and Download Options
+
+    st.markdown("### Update and Download Options")
+
+    if st.button("Update Financial Data", key="update_data_financials"):
+        st.write(f"Updating financial data for {selected_ticker}...")
+        stock = yf.Ticker(selected_ticker) 
+        st.success("Financial data updated successfully!")
+
+    download_option = st.radio("Select data to download", ["Selected Financial Statement", "Basic Financial Metrics"], key="download_option_financials")
+    
+    if st.button("Download Data", key="download_data_financials"):
+        if download_option == "Selected Financial Statement" and selected_statement:
+            csv_data = processed_data.to_csv(index=True)
+            st.download_button(
+                label="Download Selected Financial Statement as CSV",
+                data=csv_data,
+                file_name=f"{selected_ticker}_{selected_statement.lower().replace(' ', '_')}.csv",
+                mime="text/csv",
+                key="download_statement_data"
+            )
+        elif download_option == "Basic Financial Metrics":
+            
+            metrics_data = {
+                "Metric": ["Company Name", "Ticker", "Market Capitalization", "P/E Ratio", "EPS", "Price/Sales Ratio", "Revenue"],
+                "Value": [
+                    info.get("longName", "N/A"),
+                    selected_ticker,
+                    f"${info.get('marketCap', 'N/A') / 1e9:.2f}B",
+                    info.get("forwardPE", "N/A"),
+                    f"${info.get('trailingEps', 'N/A')}",
+                    info.get("priceToSalesTrailing12Months", "N/A"),
+                    f"${info.get('totalRevenue', 'N/A') / 1e6:.2f}M"
+                ]
+            }
+            metrics_df = pd.DataFrame(metrics_data)
+            csv_metrics = metrics_df.to_csv(index=False)
+            st.download_button(
+                label="Download Basic Financial Metrics as CSV",
+                data=csv_metrics,
+                file_name=f"{selected_ticker}_financial_metrics.csv",
+                mime="text/csv",
+                key="download_metrics_data"
+            )
 
 # **Page 4: Stock Summary**
 if page == "Monte Carlo simulation":
