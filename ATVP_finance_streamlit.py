@@ -325,12 +325,14 @@ if page == "Summary":
         st.text("Not available")
 
     #Update & Download option
-
-    st.button("Update Data", key="update_data"):
-    st.write(f"Updating data for {selected_ticker}...")
-    hist_data = get_stock_history(selected_ticker, selected_period)
-    info, major_shareholders = get_stock_info(selected_ticker)
-    st.success("Data updated successfully!")
+    st.markdown("### Update and Download Options")
+    
+    # Botón para actualizar datos
+    if st.button("Update Data", key="update_data"):
+        st.write(f"Updating data for {selected_ticker}...")
+        hist_data = get_stock_history(selected_ticker, selected_period)
+        info, major_shareholders = get_stock_info(selected_ticker)
+        st.success("Data updated successfully!")
 
    
     download_option = st.selectbox("Select data to download", ["Historical Data", "Company Summary"], key="download_option")
