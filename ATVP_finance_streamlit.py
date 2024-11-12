@@ -329,9 +329,7 @@ if page == "Summary":
     
     # Retrieve stock history data
     try:
-        data = get_stock_history(selected_ticker, selected_period)
-        st.write("Data updated successfully!")
-        
+        data = get_stock_history(selected_ticker, selected_period)     
              
         # Download button for CSV
         csv = data.to_csv(index=True)
