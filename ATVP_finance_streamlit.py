@@ -326,7 +326,7 @@ if page == "Summary":
 
     #Update & Download option
 
-    download_option = st.sidebar.selectbox("Select data to download", ["Historical Data", "Company Summary"])
+    download_option = st.selectbox("Select data to download", ["Historical Data", "Company Summary"])
 
     # Update and download options
     st.markdown("### Update and Download Options")
