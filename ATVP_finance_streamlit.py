@@ -259,15 +259,19 @@ if page == "Summary":
             '5Y': '5y',
             'Max': 'max'
         }
-        selected_period = '1Y'  # Default value
+        if 'selected_period' not in st.session_state:
+            st.session_state['selected_period'] = '1Y'  # Default value
 
-        # Buttons to select the period
+        # Time period selection buttons
+        st.write("### Select Time Period for Stock Data")
         time_buttons = st.container()
         cols = time_buttons.columns(len(time_options))
         
+        # Display buttons and update the selected period
         for i, (label, period) in enumerate(time_options.items()):
             if cols[i].button(label):
                 st.session_state['selected_period'] = period
+        
         selected_period = st.session_state['selected_period']
         st.write(f"**Currently selected period: {selected_period}**")
        
