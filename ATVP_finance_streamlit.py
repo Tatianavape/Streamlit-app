@@ -267,8 +267,9 @@ if page == "Summary":
         
         for i, (label, period) in enumerate(time_options.items()):
             if cols[i].button(label):
-                selected_period = period
-
+                st.session_state['selected_period'] = period
+        selected_period = st.session_state['selected_period']
+        st.write(f"**Currently selected period: {selected_period}**")
        
         # Get historical data
         try:
