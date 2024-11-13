@@ -287,12 +287,12 @@ if page == "Summary":
                 # Stock price area plot
                 area_plot = go.Scatter(x=hist_data.index, y=hist_data['Close'],
                         fill='tozeroy', fillcolor='rgba(133, 133, 241, 0.2)', showlegend=False)
-                fig.add_trace(area_plot, secondary_y=True)
+                fig.add_trace(area_plot)
 
 
                 # Customize the layout
                 fig.update_layout(template='plotly_white', height=600, title=f"Stock close price for {selected_ticker} in {selected_period}", xaxis_title="Date", yaxis_title="USD Price")
-                fig.update_yaxes(range=[0, hist_data['Close'].max() * 1.1], secondary_y=True)
+                fig.update_yaxes(range=[0, hist_data['Close'].max() * 1.1])
             
 
                 st.plotly_chart(fig)
