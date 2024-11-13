@@ -273,8 +273,7 @@ if page == "Summary":
                 st.session_state['selected_period'] = period
         
         selected_period = st.session_state['selected_period']
-        st.write(f"**Currently selected period: {selected_period}**")
-       
+               
         # Get historical data
         try:
             hist_data = get_stock_history(selected_ticker, selected_period)
@@ -292,7 +291,7 @@ if page == "Summary":
 
 
                 # Customize the layout
-                fig.update_layout(template='plotly_white', height=600)
+                fig.update_layout(template='plotly_white', height=600, title=f"Stock close price for {selected_ticker} in {selected_period}", xaxis_title="Date", yaxis_title="USD Price")
                 fig.update_yaxes(range=[0, hist_data['Close'].max() * 1.1], secondary_y=True)
             
 
